@@ -8,4 +8,51 @@ knitr::opts_chunk$set(echo=T, comment=NA, error=T, message = F, fig.align = 'cen
 ```
 
 
-## 
+## Scatterplots
+100xp
+Saved in your console is a dataset called women which contains the height and weight of 15 women (try typing it into your console and press enter to have a look).
+Let's have a look at the relationship between height and weight through a scatterplot, using the R function plot(). The first argument of plot() is the x-axis coordinates, and the second argument is the y-axis coordinates.
+
+Instructions
+In your script, make a scatterplot of women with weight on the x-axis, and height on the y-axis.
+Use main = *title here* inside plot() to add the title "Heights and Weights"
+
+
+```{r}
+# Plot height and weight of the "women" dataset. Make the title "Heights and Weights"
+load("women.rda")
+
+plot(women$weight, women$height, main = "Heights and Weights")
+```
+
+-----
+
+## Making a Contingency Table
+100xp
+Saved in your console is a dataset called smoking, which contains data about amount of tobacco smoked per day in a sample of 88 students. The student variable says whether a student is in high school, or university, and the tobacco variable indicates how many grams of tobacco are smoked per day. We expected that there would be more tobacco use (the dependent variable) in university (the independent variable).
+
+We can make a contingency table of this data using the table() function. While previously you may have used this with one variable, this time you will use it with two. The first variable used with table() will appear in the rows, while the second variable will appear in the columns.
+
+Instructions
+Make a contingency table with amount of tobacco smoked as rows, and education as columns.
+
+```{r}
+# Make a contingency table of tobacco consumption and education
+load("smoking.rda")
+
+table(smoking$tobacco, smoking$student)
+```
+
+
+
+## Calculating Percentage From Your Contingency Table
+100xp
+Have a look at the contingency table of tobacco consumption and education you made in the last exercise. It's saved in your console as st. Let's use it to calculate some percentages!
+
+In this exercise you need to report your answers to one decimal place. You are free to do this manually, but if you want a quick way to do this through R you can use the round() function. The first argument of round() is the value that you want to round (this can be in the form of a raw number, or an equation), and the second argument is digits =, where you specify the number of decimal places you want the number rounded to. For instance, round(12.6734, digits = 2) would return the value 12.67.
+
+Instructions
+In your console, calculate the percentage of high school students who smoke 0-9g of tobacco per day.
+In your console, calculate what percentage of students who smoke the most are in university.
+Type your answers to one decimal place (without a percentage symbol) into your script
+
