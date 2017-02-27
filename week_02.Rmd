@@ -56,3 +56,32 @@ In your console, calculate the percentage of high school students who smoke 0-9g
 In your console, calculate what percentage of students who smoke the most are in university.
 Type your answers to one decimal place (without a percentage symbol) into your script
 
+```{r}
+# What percentage of high school students smoke 0-9g of tobacco?
+round(st["0-9g", "high school"] / sum(st[, "high school"])*100, 1)
+
+# Of the students who smoke the most, what percentage are in university?
+round(max(st["20-29g", "university"]) / sum(st["20-29g" ,])*100, 1)
+```
+
+
+![](./images/interpreting_scatterplot.png)
+
+
+----
+
+## Pearson's R
+
+![](./images/pearson_r.png)
+
+Answer: 1.
+Notice how all the points are close to the line, and as one variable increases, the other increases about the same amount. This means it's a strong positive relationship!
+
+
+## Pearson's R
+
+![](./images/pearson_r_2.png)
+
+
+
+

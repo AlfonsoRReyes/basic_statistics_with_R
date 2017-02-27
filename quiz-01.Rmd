@@ -4,6 +4,21 @@ output: html_notebook
 ---
 
 
+Ten students completed an exam. Their scores were: 5, 7, 2, 1, 3, 4, 8, 8, 6, 6. What is the interquartile range (IQR)?
+
+```{r}
+students <- c(5, 7, 2, 1, 3, 4, 8, 8, 6, 6)
+IQR(students)
+```
+
+A researcher wants to know what people in Amsterdam think of football. He asks ten people to rate their attitude towards football on a scale from 0 (don't like football at all) to 10 (like football a lot). The ratings are as follows: 1, 10, 6, 9, 2, 5, 6, 6, 5, 10. What is the standard deviation?
+
+```{r}
+rate <- c(1, 10, 6, 9, 2, 5, 6, 6, 5, 10)
+sd(rate)
+```
+
+
 ## Players covered with tattoos
 
 ```{r}
@@ -81,4 +96,35 @@ getmode <- function(v) {
 ```{r}
 getmode(goals)
 ```
+
+You conduct a study on eye color and you question 550 people. 110 of them have brown eyes and 44% of them have blue eyes. What percentage of the people you questioned has blue or brown eyes? [Your answer should consist of just the number, no additional characters - so if you think the answer is 41% enter the number 41]
+
+```{r}
+U <- 550
+brown <- 100
+blue <- 0.44 * (U - 100)
+blue
+blue_or_brown <- (brown + blue) / U
+blue_or_brown
+```
+
+```{r}
+U <- 550
+brown <- 100
+blue <- 0.44 * U   # 44% of them
+blue
+blue_or_brown <- (brown + blue) / U
+blue_or_brown
+```
+
+```{r}
+U <- 550
+brown <- 100
+blue <- 0.44 * (U - 100)
+blue
+blue_or_brown <- (brown + blue) / U
+blue_or_brown
+```
+
+
 
