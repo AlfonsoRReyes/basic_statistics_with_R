@@ -1,0 +1,84 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+## Players covered with tattoos
+
+```{r}
+pct_body <- c(10.8, 14.1, 17.6, 19.3, 15.4, 15.3, 15, 17.8, 13.5, 12.1, 14.1)
+player <- seq_along(pct_body)
+df <- data.frame(player = player, pct_body = pct_body)
+df
+```
+
+
+## Calculate z-score
+
+```{r}
+m <- mean(df$pct_body)
+s <- sd(df$pct_body)
+
+df.calc <- df %>%
+mutate(zscore = round((pct_body - m) / s, 2))
+df.calc
+```
+
+Notice that you end up with negative z-scores and positive z-scores. Negative z-scores represent values below the mean, and positive z-scores represent values above the mean. 
+
+
+The grades for a statistics exam are as follows: 3, 5, 5, 6, 7.5, 6, 5, 1, 10, 4. Which score is an outlier? (Use the interquartile range (IQR).)
+
+```{r}
+grades <- c(3, 5, 5, 6, 7.5, 6, 5, 1, 10, 4)
+```
+
+
+```{r}
+iqr = IQR(grades)
+iqr
+quan <- quantile(grades)
+quan
+```
+
+```{r}
+upper <- quantile(grades)[4] + 1.5 * iqr
+upper
+
+lower <- quantile(grades)[2] - 1.5 * iqr
+lower
+```
+
+```{r}
+boxplot(grades)
+```
+
+How many goals have the top strikers of the Dutch Eredivisie football competition scored? We look at 10 strikers and obtained the following information: 12, 10, 11, 12, 11, 14, 15, 18, 21, 11. The (1) ... of the dataset equals 12, the mean equals (2) ... and the (3) ... equals 11. The standard deviation equals (4) ... Fill in the right words/numbers on the dots.
+
+
+```{r}
+goals <- c(12, 10, 11, 12, 11, 14, 15, 18, 21, 11)
+```
+
+
+```{r}
+mean(goals)
+sd(goals)
+IQR(goals)
+quantile(goals)
+```
+
+```{r}
+# Create the function for the mode
+getmode <- function(v) {
+   uniqv <- unique(v)
+   uniqv[which.max(tabulate(match(v, uniqv)))]
+}
+```
+
+
+```{r}
+getmode(goals)
+```
+
