@@ -1,5 +1,5 @@
 ---
-title: "R Notebook"
+title: "Basic Statistics, Week 2"
 output:
   html_document: default
   html_notebook: default
@@ -296,3 +296,16 @@ We can also measure the spread of data through the standard deviation. You can c
 Instructions
 In your script, find the standard deviation and interquartile ranges of horsepower (hp) and miles per gallon (mpg)
 Submit, and take a look at the values
+
+```{r}
+# Find the IQR of horsepower
+IQR(mtcars$hp)
+# Find the standard deviation of horsepower
+sd(mtcars$hp)
+# Find the IQR of miles per gallon
+IQR(mtcars$mpg)
+# Find the standard deviation of miles per gallon
+sd(mtcars$mpg)
+```
+
+
