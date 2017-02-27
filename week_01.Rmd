@@ -97,3 +97,78 @@ Add the ylab = and names.arg = commands to your barplot(height) code
 Label the y axis "number of cars" and use barnames to label the bars.
 Remeber that arguments in a function are separated with a comma (e.g. function(argument1, argument2, argument3))
 
+```{r}
+# vector of bar heights
+height <- table(mtcars$am)
+# Make a vector of the names of the bars called "barnames"
+barnames <- c("automatic", "manual")
+# Label the y axis "number of cars" and label the bars using barnames
+barplot(height, ylab = "number of cars", names.arg = barnames)
+```
+
+
+## Histograms
+100xp
+It can be useful to plot frequencies as histograms to visualize the spread of our data.
+
+Let's make a histogram of the number of carburetors in our mtcars dataset using the function hist(). The first argument of hist() is vector of values for which the histogram is desired. Following this, we can add arguments to format the graph as necessary. For instance, hist(variable, argument1, argument2)
+
+Instructions
+In your script, write a code to produce a histogram of the number of carburetors in each car using the variable carb of the data set mtcars.
+Make the title of this histogram "Carburetors" by adding the argument main = "title*" inside your hist() function.
+Remember, you can select a specific variable using either $ or [,]. If you need to look at your data you can simply enter mtcars into your console, or if you just want to check the variables you can always enter str(mtcars) in your console.
+
+```{r}
+# Make a histogram of the carb variable from the mtcars data set. Set the title to "Carburetors"
+hist(mtcars$carb, main = "Carburetors")
+```
+
+Now you can see the spread of your data. It's not very pretty right now, is it? Don't worry, we can change that.
+
+## Formatting Your Histogram
+100xp
+Sometimes we have to change things because R's default setting isn't suitable for our graph. In the same way as we added a title argument to hist(), we can change the scale of the y-axis through adding the argument ylim followed by the range we want (e.g. for a scale from 0 to 50, we would say ylim = c(0,50)). We can also label the x-axis using the argument xlab = "title", or change the colour of the bars to blue with the argument col = "blue".
+
+Instructions
+Change the y axis scale from 0 to 20
+Make the bars "red"
+Label the x-axis "Number of Carburetors"
+Remember that you should separate each argument with a comma
+
+
+```{r}
+# arguments to change the y-axis scale to 0 - 20, label the x-axis and colour the bars red
+hist(mtcars$carb, main = "Carburetors", ylim = c(0, 20), col = "red", xlab = "Number of Carburetors")
+```
+
+There are lots of things you can do to graphs. Check out the R help documentation for hist() if you want to play around.
+
+
+## Bar Graph vs. Histogram
+50xp
+Why did we make a bar graph of transmission (mtcars$am), but a histogram of carburetors (mtcars$carb)
+
+Possible Answers
+* Because transmission is continuous, and carb is categorical
+> Because transmission is categorical, and carb is continuous
+
+
+## Distributions
+
+![](./images/distributions.png)
+
+Correct!
+
+
+## Mean and Median
+100xp
+We can measure the mean and median of a variable using the functions mean() and median(), using the variable in question as the first argument between brackets. Let's try it out!
+
+Instructions
+In the editor calculate the mean and median miles per gallon (mpg) of the mtcars data set
+Remember, you can select a specific variable using either $ or [,]. If you need to look at your data you can simply enter mtcars into your console, or if you just want to check the variables you can always enter str(mtcars) in your console.
+
+
+
+
+
