@@ -40,7 +40,7 @@ round(st["0-9g", "high school"] / sum(st[, "high school"])*100, 1) #38.6
 round(max(st["20-29g", "university"]) / sum(st["20-29g" ,])*100, 1) # 57.7
 ```
 
-Recoding Variables
+## Recoding Variables
 100xp
 Currently the mpg (miles per gallon) variable of mtcars is a continuous numeric variable, but it may be more useful if mpg was a categorical variable that immedietly told you if the car had low or high miles per gallon.
 
@@ -65,4 +65,35 @@ mtcars2$mpgcategory[mtcars2$mpg < 20] <- "low"
 #Assign mpgcategory as factor to mpgfactor
 mtcars2$mpgfactor <- as.factor(mtcars2$mpgcategory)
 ```
+
+
+## Making a Bar Graph
+100xp
+We easily can make graphs to visualize our data. Let's visualize the number of manual and automatic transmissions in our car sample through a bar graph, using the function barplot(). The first argument of barplot() is a vector containing the heights of each bar. These heights correspond to the proportional frequencies of a desired measure in your data. You can obtain this information using the table() function.
+
+We are going to make a bar graph of the am (transmission) variable of the mtcars dataset. In this case, the height of the bars can be the frequency of manual and automatic transmission cars. Therefore, here we are going to use table() and barplot() to make this plot.
+
+Remember, you can select a specific variable using either $ or [,]. If you need to look at your data you can simply enter mtcars into your console, or if you just want to check the variables you can always enter str(mtcars) in your console.
+
+Instructions
+In your script, create an object called height using the frequencies of the am variable of the mtcars dataset
+Use this variable and the barplot() function to create a bar plot of transmission types in our car sample
+
+
+```{r}
+#Assign the frequency of the mtcars variable "am" to a variable called "height"
+height <- table(mtcars$am)
+#Create a barplot of "height"
+barplot(height)
+```
+
+## Labelling A Bar Graph
+100xp
+Now we're going to add some labels to the bar graph, still using barplot(). The first argument of barplot() was a vector of the bar heights. Following this, we can add arguments to format the graph as necessary. For instance, barplot(height, argument1, argument2). Here we are going to add a label to the y axis using the argument ylab = "name here", and x axis labels to the bars using the argument names.arg = "vector of names here".
+
+Instructions
+Make a vector of the names of the bars using the c() command. Assign this to the variable barnames. Remember that the first bar is automatic and the second is manual.
+Add the ylab = and names.arg = commands to your barplot(height) code
+Label the y axis "number of cars" and use barnames to label the bars.
+Remeber that arguments in a function are separated with a comma (e.g. function(argument1, argument2, argument3))
 
