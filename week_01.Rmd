@@ -3,6 +3,10 @@ title: "R Notebook"
 output: html_notebook
 ---
 
+```{r setup, include=F, error=T, message=F, warning=F}
+knitr::opts_chunk$set(echo=T, comment=NA, error=T, message = F, fig.align = 'center')
+```
+
 ## Making a Contingency Table
 100xp
 Saved in your console is a dataset called smoking, which contains data about amount of tobacco smoked per day in a sample of 88 students. The student variable says whether a student is in high school, or university, and the tobacco variable indicates how many grams of tobacco are smoked per day. We expected that there would be more tobacco use (the dependent variable) in university (the independent variable).
