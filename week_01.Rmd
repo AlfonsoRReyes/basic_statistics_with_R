@@ -206,5 +206,32 @@ sort(table(mtcars$carb), decreasing = TRUE)
 
 We can now see that there are two modes (or most frequent number of carburetors): 2 and 4!
 
+-----
+
+## Range
+100xp
+The range of a variable is the difference between the highest and lowest value. We can find these values using max() and min() on the variables of our choice. The value returned tells us which row (or case) contains the requested value. We can then index this case to find the desired values. Remember, you can index using [].
+
+### Instructions
+In your script, assign the minimum value of mtcars$mpg to x
+In your script, assign the maximum value of mtcars$mpg to y
+In your script, use the values of x and y to calculate the range of miles per gallon
+
+
+```{r}
+# Minimum value
+x <- min(mtcars$mpg)
+# Maximum value
+y <- max(mtcars$mpg)
+# Calculate the range of mpg using x and y
+y - x
+```
+
+Looks like the range in miles per gallon is 23.5. Another way you can find the max and min values is with the function `range()`.
+
+----
+
+## 
+
 
 
