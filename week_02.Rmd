@@ -113,3 +113,13 @@ We can calculate the correlation in R using the function cor(), which takes your
 Instructions
 In your script, calculate the correlation between var1 and var2 (these are saved in your console already)
 
+```{r fig.asp=1.5}
+load("data.rda")
+
+plot(data$var1, data$var2)
+```
+
+```{r}
+cor(data$var1, data$var2)
+```
+
