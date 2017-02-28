@@ -82,6 +82,34 @@ Notice how all the points are close to the line, and as one variable increases, 
 
 ![](./images/pearson_r_2.png)
 
+Answer: 0.418
+The variables are quite scattered, but as one variable increases so does another, so it's a moderate positive relationship!
 
 
+## Pearson's R #3
+
+![](./images/pearson_r_3.png)
+
+
+
+Answer: -0.77
+As one variable increases, the other decreases. This is a moderate negative relationship!
+
+
+## Pearson's R #4
+
+![](./images/pearson_r_4.png)
+
+Answer: -0.26
+
+As one variable increases, the other decreases slightly. This is a weak negative relationship!
+
+----
+
+## Calculating Correlation Using R
+100xp
+We can calculate the correlation in R using the function cor(), which takes your two variables as it's first argument. Try it out on the variables shown in the graph.
+
+Instructions
+In your script, calculate the correlation between var1 and var2 (these are saved in your console already)
 
