@@ -123,3 +123,43 @@ plot(data$var1, data$var2)
 cor(data$var1, data$var2)
 ```
 
+
+## Finding The Line
+100xp
+When we draw a line through our data, we measure error as the sum of the difference between the observation and the line. We usually square this so that positive and negative residuals don't cancel each other out. The line that gives us the least error is our regression line.
+
+To do this you should use the sum() function, which returns the sum of all vectors provided between brackets. You can also put ^2 inside the brackets with your vectors in order to square the differences. For example, sum((vector1 - vector2) ^ 2).
+
+Instructions
+y1 contains the predicted values of y according to line 1, y2 contains the predictes value of y according to line 2, and y contains the actual observed values of variable y.
+In your script, calculate the squared error of line 1 and line 2.
+Take a look at the output!
+
+```{r fig.asp=1}
+# predicted values of y according to line 1
+y1 <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+
+# predicted values of y according to line 2
+y2 <- c(2, 3, 4, 5, 6, 7, 8, 9, 10, 11)
+
+# actual values of y
+y <- c(3, 2, 1, 4, 5, 10, 8, 7, 6, 9) 
+
+plot(y1, col = "blue", type = "l")
+points(y)
+
+plot(y2, col = "red", type = "l")
+points(y)
+```
+
+
+```{r}
+# calculate the squared error of line 1
+sum((y1 - y)^2)
+
+# calculate the squared error of line 2
+sum((y2 - y)^2)
+```
+
+There is less error with line 1, this means it fits better and so it is a better line for predicting Y.
+
