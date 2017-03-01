@@ -1,0 +1,311 @@
+---
+title: "Basic Statistics, Week 2"
+output:
+  html_document: default
+  html_notebook: default
+---
+
+```{r setup, include=F, error=T, message=F, warning=F}
+knitr::opts_chunk$set(echo=T, comment=NA, error=T, message = F, fig.align = 'center')
+```
+
+## Making a Contingency Table
+100xp
+Saved in your console is a dataset called smoking, which contains data about amount of tobacco smoked per day in a sample of 88 students. The student variable says whether a student is in high school, or university, and the tobacco variable indicates how many grams of tobacco are smoked per day. We expected that there would be more tobacco use (the dependent variable) in university (the independent variable).
+
+We can make a contingency table of this data using the table() function. While previously you may have used this with one variable, this time you will use it with two. The first variable used with table() will appear in the rows, while the second variable will appear in the columns.
+
+Instructions
+Make a contingency table with amount of tobacco smoked as rows, and education as columns.
+
+```{r}
+load("smoking.rda")
+
+# Make a contingency table of tobacco consumption and education
+st <- table(smoking$tobacco, smoking$student)
+st
+```
+
+## Calculating Percentage From Your Contingency Table
+100xp
+Have a look at the contingency table of tobacco consumption and education you made in the last exercise. It's saved in your console as st. Let's use it to calculate some percentages!
+
+In this exercise you need to report your answers to one decimal place. You are free to do this manually, but if you want a quick way to do this through R you can use the round() function. The first argument of round() is the value that you want to round (this can be in the form of a raw number, or an equation), and the second argument is digits =, where you specify the number of decimal places you want the number rounded to. For instance, round(12.6734, digits = 2) would return the value 12.67.
+
+Instructions
+In your console, calculate the percentage of high school students who smoke 0-9g of tobacco per day.
+In your console, calculate what percentage of students who smoke the most are in university.
+Type your answers to one decimal place (without a percentage symbol) into your script
+
+
+```{r}
+# What percentage of high school students smoke 0-9g of tobacco?
+round(st["0-9g", "high school"] / sum(st[, "high school"])*100, 1) #38.6
+
+# Of the students who smoke the most, what percentage are in university?
+round(max(st["20-29g", "university"]) / sum(st["20-29g" ,])*100, 1) # 57.7
+```
+
+## Recoding Variables
+100xp
+Currently the mpg (miles per gallon) variable of mtcars is a continuous numeric variable, but it may be more useful if mpg was a categorical variable that immedietly told you if the car had low or high miles per gallon.
+
+We can make categories through indexing variables that meet certain criteria.
+
+For instance, if we want to make a new variable that categorises people over age 18 as "adult"", we might enter: yourdata$newvariable[yourdata$age > 18] <- "adult" This assigns the value "adult" to the variable newvariable, for all cases where age is greater than 18.
+
+Remember, you can select a specific variable using either $ or [,]. If you need to look at your data you can simply enter mtcars into your console, or if you just want to check the variables you can always enter str(mtcars) in your console
+
+Instructions
+Make a copy of mtcars called mtcars2 (this is useful so that if you make a mistake your original dataset stays in tact!)
+Using mtcars2 in your script, make a new variable called mpgcategory where values ofmpg greater than, or equal to 20 are classed as "high" and below 20 are classed as "low".
+The new variable will be classed as 'charater' by default. Assign mpgcategory as a factor to a new variable mtcars2$mpgfactor using the function as.factor().
+
+```{r}
+#Assign the value of mtcars to the new variable mtcars2
+mtcars2 <- mtcars
+#Assign the label "high" to mpgcategory where mpg is greater than or equal to 20
+mtcars2$mpgcategory[mtcars2$mpg >= 20] <- "high"
+#Assign the label "low" to mpgcategory where mpg is less than 20
+mtcars2$mpgcategory[mtcars2$mpg < 20] <- "low"
+#Assign mpgcategory as factor to mpgfactor
+mtcars2$mpgfactor <- as.factor(mtcars2$mpgcategory)
+```
+
+
+## Making a Bar Graph
+100xp
+We easily can make graphs to visualize our data. Let's visualize the number of manual and automatic transmissions in our car sample through a bar graph, using the function barplot(). The first argument of barplot() is a vector containing the heights of each bar. These heights correspond to the proportional frequencies of a desired measure in your data. You can obtain this information using the table() function.
+
+We are going to make a bar graph of the am (transmission) variable of the mtcars dataset. In this case, the height of the bars can be the frequency of manual and automatic transmission cars. Therefore, here we are going to use table() and barplot() to make this plot.
+
+Remember, you can select a specific variable using either $ or [,]. If you need to look at your data you can simply enter mtcars into your console, or if you just want to check the variables you can always enter str(mtcars) in your console.
+
+Instructions
+In your script, create an object called height using the frequencies of the am variable of the mtcars dataset
+Use this variable and the barplot() function to create a bar plot of transmission types in our car sample
+
+
+```{r}
+#Assign the frequency of the mtcars variable "am" to a variable called "height"
+height <- table(mtcars$am)
+#Create a barplot of "height"
+barplot(height)
+```
+
+## Labelling A Bar Graph
+100xp
+Now we're going to add some labels to the bar graph, still using barplot(). The first argument of barplot() was a vector of the bar heights. Following this, we can add arguments to format the graph as necessary. For instance, barplot(height, argument1, argument2). Here we are going to add a label to the y axis using the argument ylab = "name here", and x axis labels to the bars using the argument names.arg = "vector of names here".
+
+Instructions
+Make a vector of the names of the bars using the c() command. Assign this to the variable barnames. Remember that the first bar is automatic and the second is manual.
+Add the ylab = and names.arg = commands to your barplot(height) code
+Label the y axis "number of cars" and use barnames to label the bars.
+Remeber that arguments in a function are separated with a comma (e.g. function(argument1, argument2, argument3))
+
+```{r}
+# vector of bar heights
+height <- table(mtcars$am)
+# Make a vector of the names of the bars called "barnames"
+barnames <- c("automatic", "manual")
+# Label the y axis "number of cars" and label the bars using barnames
+barplot(height, ylab = "number of cars", names.arg = barnames)
+```
+
+
+## Histograms
+100xp
+It can be useful to plot frequencies as histograms to visualize the spread of our data.
+
+Let's make a histogram of the number of carburetors in our mtcars dataset using the function hist(). The first argument of hist() is vector of values for which the histogram is desired. Following this, we can add arguments to format the graph as necessary. For instance, hist(variable, argument1, argument2)
+
+Instructions
+In your script, write a code to produce a histogram of the number of carburetors in each car using the variable carb of the data set mtcars.
+Make the title of this histogram "Carburetors" by adding the argument main = "title*" inside your hist() function.
+Remember, you can select a specific variable using either $ or [,]. If you need to look at your data you can simply enter mtcars into your console, or if you just want to check the variables you can always enter str(mtcars) in your console.
+
+```{r}
+# Make a histogram of the carb variable from the mtcars data set. Set the title to "Carburetors"
+hist(mtcars$carb, main = "Carburetors")
+```
+
+Now you can see the spread of your data. It's not very pretty right now, is it? Don't worry, we can change that.
+
+## Formatting Your Histogram
+100xp
+Sometimes we have to change things because R's default setting isn't suitable for our graph. In the same way as we added a title argument to hist(), we can change the scale of the y-axis through adding the argument ylim followed by the range we want (e.g. for a scale from 0 to 50, we would say ylim = c(0,50)). We can also label the x-axis using the argument xlab = "title", or change the colour of the bars to blue with the argument col = "blue".
+
+Instructions
+Change the y axis scale from 0 to 20
+Make the bars "red"
+Label the x-axis "Number of Carburetors"
+Remember that you should separate each argument with a comma
+
+
+```{r}
+# arguments to change the y-axis scale to 0 - 20, label the x-axis and colour the bars red
+hist(mtcars$carb, main = "Carburetors", ylim = c(0, 20), col = "red", xlab = "Number of Carburetors")
+```
+
+There are lots of things you can do to graphs. Check out the R help documentation for hist() if you want to play around.
+
+
+## Bar Graph vs. Histogram
+50xp
+Why did we make a bar graph of transmission (mtcars$am), but a histogram of carburetors (mtcars$carb)
+
+Possible Answers
+* Because transmission is continuous, and carb is categorical
+> Because transmission is categorical, and carb is continuous
+
+
+## Distributions
+
+![](./images/distributions.png)
+
+Correct!
+
+-----
+
+## Mean and Median
+100xp
+We can measure the mean and median of a variable using the functions mean() and median(), using the variable in question as the first argument between brackets. Let's try it out!
+
+Instructions
+In the editor calculate the mean and median miles per gallon (mpg) of the mtcars data set
+Remember, you can select a specific variable using either $ or [,]. If you need to look at your data you can simply enter mtcars into your console, or if you just want to check the variables you can always enter str(mtcars) in your console.
+
+
+```{r}
+# Calculate the mean miles per gallon
+mean(mtcars$mpg)
+# Calculate the median miles per gallon
+median(mtcars$mpg)
+```
+
+Can you see that the values are slightly different for each measure?
+
+-----
+
+## Mode
+100xp
+Sometimes it is useful to look at the the most frequent value in a data set, known as the 'mode'. R doesn't have a standard function for mode, but we can calculate the mode easily using the `table()` function, which you might be familiar with now.
+
+When you have a large data set, the output of table() might be too long to manually identify which value is the mode. In this case it can be useful to use the `sort()` function, which arranges a vector or factor into ascending order. (You can add the argument `decreasing = TRUE` to `sort()` if you want to arrange it in to descending order.)
+
+Lets use `sort()` and `table()` to find the mode of the carb variable of mtcars.
+
+### Instructions
+* Produce a frequency table of carb from mtcars in descending order of frequency
+* Remember that you should separate arguments with a comma
+
+```{r}
+# Produce a sorted frequency table of `carb` from `mtcars`
+sort(table(mtcars$carb), decreasing = TRUE)
+```
+
+We can now see that there are two modes (or most frequent number of carburetors): 2 and 4!
+
+-----
+
+## Range
+100xp
+The range of a variable is the difference between the highest and lowest value. We can find these values using max() and min() on the variables of our choice. The value returned tells us which row (or case) contains the requested value. We can then index this case to find the desired values. Remember, you can index using [].
+
+### Instructions
+In your script, assign the minimum value of mtcars$mpg to x
+In your script, assign the maximum value of mtcars$mpg to y
+In your script, use the values of x and y to calculate the range of miles per gallon
+
+
+```{r}
+# Minimum value
+x <- min(mtcars$mpg)
+# Maximum value
+y <- max(mtcars$mpg)
+# Calculate the range of mpg using x and y
+y - x
+```
+
+Looks like the range in miles per gallon is 23.5. Another way you can find the max and min values is with the function `range()`.
+
+----
+
+## Quartiles
+100xp
+You can calculate the quartiles in your data set using the function quantile(). The output of quantile() gives you the lowest value, first quartile, second quartile, third quartile and highest value. 25% of your data lies below the first quartile value, 50% lies below the second quartile, and 75% lies below the third quartile value. Let's see for ourselves!
+
+### Instructions
+In your console, calculate the quartiles of the variable qsec from mtcars using the quantile() function.
+From the output, answer the questions in your script.
+
+```{r}
+quantile(mtcars$qsec)[3]
+quantile(mtcars$qsec)[2]
+```
+
+----
+
+## IQR and boxplot
+100xp
+To better visualise your data's quartiles you can create a boxplot using the function boxplot() (in the same way as you used hist() and barplot()). Similarly, you can calculate the interquartile range manually by subtracting the value of the third quartile from the value of the first quartile, or we can use the function IQR() on your variable of interest. Let's try out making a boxplot and calculating the interquartile range of the mtcars variable qsec.
+
+Instructions
+Use the boxplot() function on the variable qsec of mtcars
+Calculate the interquartile range of qsec from mtcars using IQR()
+
+
+```{r}
+# Make a boxplot of qsec
+boxplot(mtcars$qsec)
+# Calculate the interquartile range of qsec
+IQR(mtcars$qsec)
+```
+
+ Looks like the interquartile range is 2.0075 and you have also visualised that in your plot!
+
+----
+
+## IQR outliers
+100xp
+In the boxplot you created you can see a circle above the boxplot. This indicates an outlier. We can calculate an outlier as a value 1.5 * IQR above the third quartile, or 1.5 * IQR below the first quartile. Let's try it out with the qsec variable from mtcars.
+
+### Instructions
+In your console, find the value of the interquartile range of the qsec variable of mtcars using IQR().
+In your console, find the values of the first and third quartiles of the qsec variable of mtcars using quantile()
+In your console, calculate the upper threshold value for an outlier. Report this value in your script.
+In your console, calculate the lower threshold value for an outlier. Report this value in your script.
+
+
+```{r}
+iqr <- IQR(mtcars$qsec)
+quant <- quantile(mtcars$qsec)
+upper <- quant[2] - 1.5 * iqr 
+lower <- quant[4] + 1.5 * iqr
+
+upper
+lower
+```
+
+----
+
+## Standard Deviation
+100xp
+We can also measure the spread of data through the standard deviation. You can calculate these using the function sd(), which takes a vector of the variable in question as its first argument. Let's try it out!
+
+Instructions
+In your script, find the standard deviation and interquartile ranges of horsepower (hp) and miles per gallon (mpg)
+Submit, and take a look at the values
+
+```{r}
+# Find the IQR of horsepower
+IQR(mtcars$hp)
+# Find the standard deviation of horsepower
+sd(mtcars$hp)
+# Find the IQR of miles per gallon
+IQR(mtcars$mpg)
+# Find the standard deviation of miles per gallon
+sd(mtcars$mpg)
+```
+
+

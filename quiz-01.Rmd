@@ -1,0 +1,130 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+Ten students completed an exam. Their scores were: 5, 7, 2, 1, 3, 4, 8, 8, 6, 6. What is the interquartile range (IQR)?
+
+```{r}
+students <- c(5, 7, 2, 1, 3, 4, 8, 8, 6, 6)
+IQR(students)
+```
+
+A researcher wants to know what people in Amsterdam think of football. He asks ten people to rate their attitude towards football on a scale from 0 (don't like football at all) to 10 (like football a lot). The ratings are as follows: 1, 10, 6, 9, 2, 5, 6, 6, 5, 10. What is the standard deviation?
+
+```{r}
+rate <- c(1, 10, 6, 9, 2, 5, 6, 6, 5, 10)
+sd(rate)
+```
+
+
+## Players covered with tattoos
+
+```{r}
+pct_body <- c(10.8, 14.1, 17.6, 19.3, 15.4, 15.3, 15, 17.8, 13.5, 12.1, 14.1)
+player <- seq_along(pct_body)
+df <- data.frame(player = player, pct_body = pct_body)
+df
+```
+
+
+## Calculate z-score
+
+```{r}
+m <- mean(df$pct_body)
+s <- sd(df$pct_body)
+
+df.calc <- df %>%
+mutate(zscore = round((pct_body - m) / s, 2))
+df.calc
+```
+
+Notice that you end up with negative z-scores and positive z-scores. Negative z-scores represent values below the mean, and positive z-scores represent values above the mean. 
+
+
+The grades for a statistics exam are as follows: 3, 5, 5, 6, 7.5, 6, 5, 1, 10, 4. Which score is an outlier? (Use the interquartile range (IQR).)
+
+```{r}
+grades <- c(3, 5, 5, 6, 7.5, 6, 5, 1, 10, 4)
+```
+
+
+```{r}
+iqr = IQR(grades)
+iqr
+quan <- quantile(grades)
+quan
+```
+
+```{r}
+upper <- quantile(grades)[4] + 1.5 * iqr
+upper
+
+lower <- quantile(grades)[2] - 1.5 * iqr
+lower
+```
+
+```{r}
+boxplot(grades)
+```
+
+How many goals have the top strikers of the Dutch Eredivisie football competition scored? We look at 10 strikers and obtained the following information: 12, 10, 11, 12, 11, 14, 15, 18, 21, 11. The (1) ... of the dataset equals 12, the mean equals (2) ... and the (3) ... equals 11. The standard deviation equals (4) ... Fill in the right words/numbers on the dots.
+
+
+```{r}
+goals <- c(12, 10, 11, 12, 11, 14, 15, 18, 21, 11)
+```
+
+
+```{r}
+mean(goals)
+sd(goals)
+IQR(goals)
+quantile(goals)
+```
+
+```{r}
+# Create the function for the mode
+getmode <- function(v) {
+   uniqv <- unique(v)
+   uniqv[which.max(tabulate(match(v, uniqv)))]
+}
+```
+
+
+```{r}
+getmode(goals)
+```
+
+You conduct a study on eye color and you question 550 people. 110 of them have brown eyes and 44% of them have blue eyes. What percentage of the people you questioned has blue or brown eyes? [Your answer should consist of just the number, no additional characters - so if you think the answer is 41% enter the number 41]
+
+```{r}
+U <- 550
+brown <- 100
+blue <- 0.44 * (U - 100)
+blue
+blue_or_brown <- (brown + blue) / U
+blue_or_brown
+```
+
+```{r}
+U <- 550
+brown <- 100
+blue <- 0.44 * U   # 44% of them
+blue
+blue_or_brown <- (brown + blue) / U
+blue_or_brown
+```
+
+```{r}
+U <- 550
+brown <- 100
+blue <- 0.44 * (U - 100)
+blue
+blue_or_brown <- (brown + blue) / U
+blue_or_brown
+```
+
+
+
