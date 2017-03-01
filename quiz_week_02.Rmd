@@ -1,0 +1,109 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+## Q3
+You've collected the following data about the amount of chocolate people eat and how happy these people are.
+
+Amount of chocolate bars a week: 2, 4, 1.5, 2, 3.
+
+Grades for happiness: 7, 3, 8, 8, 6.
+
+(Note, the numbers are in the right order so person one eats 2 chocolate bars and scores her happiness with a 7.)
+
+Compute the Pearson's r.
+
+```{r}
+bars_week <- c( 2, 4, 1.5, 2, 3)
+happiness <- c(7, 3, 8, 8, 6)
+
+df <- data.frame(x = bars_week, y = happiness)
+
+plot(bars_week, happiness)
+```
+
+Calculate Pearson's r
+```{r}
+# Calculate Pearson's r
+library(dplyr)
+
+df.calc <- df %>%
+  # calculate the z-score for x and z-score for y
+  mutate(zx = (x - mean(x)) /sd(x), zy = (y - mean(y)) /sd(y)) %>%
+  mutate(zxzy = zx * zy)  # calculate the product of zx and zy
+
+sum.zxzy <- sum(df.calc$zxzy)   # add up zx*zy
+n <- nrow(df)
+
+r <- sum.zxzy / (n - 1)   # divide by (n-1)
+r
+```
+
+## Q4
+You've investigated how eating chocolate bars influences a student's grades. You've done this by asking people to keep track of their chocolate intake (in bars per week) and by assessing their exam results one day later. Which statement(s) about the regression line y-hat = 0.66x + 1.99 is/are true?
+
+```{r}
+y = 0.66 * x + 1.99
+
+x = 12
+y
+
+```
+```{r}
+y = 0.66 * x + 1.99
+
+x = 13
+y
+```
+
+```{r}
+(y - 1.99) / 0.66 =  x
+
+```
+
+## Q5
+A professor uses the following formula to grade a statistics exam:
+
+y-hat = 0.5 + 0.53x. After obtaining the results the professor realizes that the grades are very low, so he might have been too strict. He decides to level up all results by one point. What will be the new grading equation?
+
+```{r}
+# y <- 0.5 + 0.53 * x
+f <- function(x) {0.5 + 0.53 * x}
+g <- function(x) {1.5 + 1.53 * x}
+h <- function(x) {0.5 + 0.53 * x - 1}
+j <- function(x) {1.5 + 0.53 * x}
+k <- function(x) {0.5 + 0.53 * x}
+```
+
+```{r}
+x <- 11
+f(x)
+g(x)
+h(x)
+j(x)
+k(x)
+```
+
+
+```{r}
+# (1)
+r <- 0.8
+r^2
+```
+
+```{r}
+# (2) 50 percent of the variance in Y is explained by X.
+# this means 
+# r^2 = 0.50
+```
+
+
+
+```{r}
+r.squared <- 0.78
+```
+
+
+
+
