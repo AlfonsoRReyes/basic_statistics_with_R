@@ -1,0 +1,438 @@
+---
+title: "Probability"
+output:
+  html_document: default
+  html_notebook: default
+---
+
+```{r setup, include=F, error=T, message=F, warning=F}
+knitr::opts_chunk$set(echo=T, comment=NA, error=T, message = F, fig.align = 'center')
+```
+
+## Randomness I
+50xp   
+You approach 20 people who happen to be in the street to participate in your research. Is this random?
+
+#### Possible Answers
+
+a) Yes   
+b) No   
+c) Impossible to tell   
+
+> (No). Approaching people will be influenced by all kinds of factors, so unfortunately it's not random!
+
+## Randomness II
+50xp   
+You roll a fair dice four times. The outcome is {6, 6, 6, 6}. Is this random?
+
+#### Possible Answers   
+Yes   
+No   
+Impossible to tell   
+
+> Yes. The outcome of rolling a dice is not influenced by other factors.
+
+
+## Probability I
+100xp   
+Probability is calculated as the relative frequency of an ouctome. Let's try it out.
+
+Imagine you have a bag of 10 scrabble letters. Three of these letters are A, three are E and two are I.
+
+#### Instructions
+In your script, report the probability that you pull a letter from the bag that IS NOT an A, E or I?   
+Feel free to use your console to make calculations.   
+
+```{r}
+pa = 3/10
+pe = 3/10
+pi = 2/10
+p.aei <- pa + pe + pi 
+
+# we take the complement
+1 - (3/10 + 3/10 + 2/10)
+```
+
+## Probability II
+50xp   
+The probability of rolling a 6 was 1/6, yet you rolled four 6s in a row. Which of the following is not true?
+
+#### Possible Answers   
+The probability of this outcome was 1/296, which was unlikely but still possible
+
+The more often you roll the dice, the closer the cumulative probability will come to 1/6
+
+There is a high probability that following roll will produce a different number
+
+> There is a high probability that following roll will produce a different number
+
+
+## Sample Space I
+100xp   
+You have a bag containing three A and two E scrabble letters. You consider the sample space of drawing three letters from the bag without replacing them (i.e. each trial is dependent).
+
+#### Instructions
+In your script, make a vector called samplespace containing each value of the sample space as a string.   
+
+
+```{r}
+# Events/trials:
+  # draw #1
+  # draw #2
+  # draw #3
+# Random variables:
+  # three A letters
+  # two E letters
+
+# size of sample space = nvar^events
+
+```
+
+
+
+
+```{r}
+# an urn comtains three Read balls, two green balls and one white
+balls <- c(rep("R", 3), rep("G", 2), rep("W", 1))
+s <- sample(balls, 3)   # drawn three balls; three events
+drawn <- paste(s, collapse = "") 
+replicate(10, drawn) # problem here is sample does not refresh
+```
+We can see a problem here. The sample does not refresh. We will fix it in the next chunk.
+
+```{r}
+# fix issue of refresing sample with a function
+drawn <- function(balls, events = 3) {
+  s <- sample(balls, events)   # drawn three balls; three events
+  paste(s, collapse = "") 
+}
+
+replicate(3^3, drawn(balls, 3))
+```
+
+### Applying function to exercise
+```{r}
+drawn <- function(set, trials = 3) {
+  s <- sample(set, trials)   # drawn three balls; three trials
+  paste(s, collapse = "") 
+}
+
+random.vars <- c("A", "E")
+number.vars <- c(3, 2)
+set <- c(rep(random.vars[1], number.vars[1]), 
+         rep(random.vars[2], number.vars[2]))
+set
+
+# unique will filter non-repeating combinations
+unique(replicate(2^12, drawn(set, trials = 3)))
+```
+
+> Answer: Well done! Indeed, the sample space contains each combination of A and E, except for three E's because this is not possible with only two E letters
+
+## Sample Space II
+100xp    
+You have a bag containing three A and two E scrabble letters, and draw three letters from the bag. This means your sample space is (AAA, AAE, AEE, EAA, EEA, AEA, EAE).
+
+#### Instructions
+Answer the questions in your script
+
+```{r}
+# The probability  that none of the outcomes in the sample will occur
+0
+# The probability that at least one of the outcomes in the sample space will occur
+1
+```
+
+> Answer: Well done! One of the outcomes in the sample space will definitely occur. So the probability of one outcome occuring is 1, and the probability of none occuring is 0!
+
+
+## Probability Tree I
+100xp   
+In your scrabble letter bag you have three A's and two E's. You take one letter out of the bag at a time, and return each letter to the bag before continuing with the following draw (i.e. each trial is independent). You draw three tiles in total. Lets calculate the probabilities of some of the possible outcomes!
+
+#### Instructions
+Draw a probability tree on pen and paper of this (we can't force you to do this, but it will probably make things easier)   
+In your script, write out the calculations to assign the probabilities of the given outcomes to their names.   
+Do not simplify your fractions   
+
+
+```{r}
+# What is the probability of AAE?
+aae <- 3/5 * 3/5 * 2/5
+# What is the probability of EAE?
+eae <- 2/5 * 3/5 * 2/5
+# What is the probability of AAA or EEA?
+aaaeea <- (3/5*3/5*3/5) + (2/5*2/5*3/5)
+```
+
+> Answer: Great work!
+
+## Probability Tree II
+100xp   
+In your scrabble letter bag you have three A's and two E's. You take one letter out of the bag at a time, but this time you do not return the leters to the bag before continuing with the following draw (i.e. trials are dependent). You draw three tiles in total. Lets calculate the probabilities of some of the possible outcomes!
+
+#### Instructions
+Draw a probability tree on pen and paper of this (we can't force you to do this, but it will probably make things easier)   
+In your script, write out the calculations to assign the probabilities of the given outcomes to their names.   
+Do not simplify your fractions   
+
+```{r}
+# What is the probability of AAE?
+aae <- 3/5*2/4*2/3
+# What is the probability of EAE?
+eae <- 2/5*3/4*1/3
+# What is the probability of AAA or EEA?
+aaaeea <- (3/5*2/4*1/3) + (2/5*1/4*3/3)
+```
+
+## Probability Terms I
+100xp   
+The symbol for a complement is c. What is the probability of X, if the probability of Xc is 0.33? Either have a look back at the lectures or check the hint if you don't remember what the complement is!
+
+#### Instructions
+Calculate the answer in your script   
+
+```{r}
+# calculate the probability of X
+x <- 1 - 0.33
+```
+
+
+## Probability Terms II
+100xp   
+Independent intersecting events are two events that do not influence each other and can occur similtaneously. An example might be the outcome of rolling two dices.
+
+A and B are independent and intersect. Assume that the probability of A is 0.3 and B is 0.2.
+
+#### Instructions
+Calculate the probability of the outcome including both A and B.
+
+```{r}
+# probability of the outcome including both A and B
+0.3 * 0.2
+```
+
+
+## Probability Terms III
+100xp   
+Disjoint exhaustive events are mutually exclusive, so only one of the events can happen at a time.
+
+A and B are disjoint and exhaustive. Assume that the probability of A is 0.33 and B is 0.2.
+
+#### Instructions
+Report the probability of A and B intersecting   
+
+```{r}
+# What is the probability of the intersection of A and B
+0
+```
+
+
+## Practise With Sets I
+100xp   
+You approach 3 people in the street to ask whether or not they drink alcohol. Think about the terminology for such a proccess.
+
+#### Instructions
+Answer the questions regarding the above scenario   
+Use lower case letters and ""when answering with words    
+
+```{r}
+# What do we call the process of approaching people and asking?
+"experiment"
+# How many trials are there?
+3
+```
+
+
+## Practise With Sets II
+100xp   
+Before approaching the first 3 people in the street to ask whether or not they drink alcohol you assume that the probability of a 'yes' answer is 0.6, and a 'no' answer is 0.4, and you now consider the probability of various outcomes. We will assume independence in this situation because one person (trial) won't influence whether or not another person drinks.
+
+#### Instructions
+Answer the questions in your script by writing out your calculations in full below   
+
+```{r}
+# Calculate the probability that the first two people drink alcohol
+0.6 * 0.6 
+# Calculate the probability that the first and third person you approach drink alcohol
+0.6 * 0.4 * 0.6
+# Calculate the complement of the outcome that none of the people drink
+1 - (0.4*0.4*0.4)
+```
+
+
+## Practise With Sets III
+100xp   
+Now let's pretend that you have 6 alcohol drinkers and 4 non-alcohol drinkers in a room. Without knowing who is who, you pick three in sequence to take part in your study. Let's consider the probability of various outcomes.
+
+#### Instructions
+Answer the questions in your script by writing out your calculations in full below   
+Do not simplify your fractions   
+
+```{r}
+# Calculate the probability that the first two people drink alcohol
+1/3
+# Calculate the probability that at the first and third person drink alcohol
+1/6
+# Calculate the complement of the the probability that none of the people drink
+1 - 1/60
+```
+
+
+## Unions
+100xp   
+You are picking flowers from a garden. The garden contains flowers of varying colors, including flowers that are completely blue, flowers that are completely pink, and also flowers that are both colours. The probability of picking a flower that is at least partly blue is 0.4 and the probability of picking a flower that is at least partly pink is 0.2. Let's think about some probabilities!
+
+#### Instructions
+Calculate the answers to the question in your script   
+Assume that the events are independent   
+Remember you'll have to find the intersection between blue and pink so you don't count this area twice!
+
+```{r}
+# Calculate the probability of picking a flower that is blue, pink or both
+0.4 + 0.2 - 0.4*0.2
+```
+
+## Joint and Marginal Probabilities
+100xp   
+Enter plants into your console to see frequency information about 90 plants in a shop. We have recorded whether a plant lives indoors or outdoors, and whether it is a flower, a succulent or a tree.
+
+You can calculate the probabilities of a given plant and living conditions based on the frequency with which this occurs in the table. For example, the probability of a plant being a tree is 14/90 = 0.1555556.
+
+    > plants
+            flower succulent tree
+    indoor      30        20    4
+    outdoor     20         6   10
+
+#### Instructions
+In your console, calculate the answers to the questions in your script   
+Report the answers in your script to 2 decimal places   
+Remember to use () when necessary in your calculations   
+
+```{r}
+# What is the probability that a plant is an indoor flower?
+30/90
+# What is the probability that a plant lives outdoors?
+(20+6+10) / 90
+```
+
+
+## Conditional Probability I
+100xp   
+Enter plants into your console to see information about whether 90 plants live indoors or outdoors, and whether they are a flower, a succulent or a tree. The values in this table represent probabilities, calculated from frequencies.
+
+    > plants
+            flower succulent tree
+    indoor    0.33      0.22 0.05
+    outdoor   0.22      0.07 0.11
+
+Let's use these probability values to find some conditional probabilities. To do this you need to use the formula 
+$P(A|B) = P(A+B)/P(B)$
+
+#### Instructions
+In your console, calculate the answers to the questions in your script   
+Report the answers in your script to 2 decimal places (you can always use the round() function for this, with the argument digits = 2)   
+Remember to use () when necessary in your calculations   
+
+
+```{r}
+# What is the probability a plant lives indoors?
+0.33+0.22+0.05
+# What is the probability a plant is a flower, given that we know it lives indoors?
+0.33 / (0.33+0.22+0.05)
+# What is the probability a plant lives indoors, given that we know it is a succulent?
+0.22 / (0.22+0.07)
+```
+
+
+## Independence
+100xp   
+Enter plants into your console to see information about whether 90 plants live indoors or outdoors, and whether they are a flower, a succulent or a tree. The values in this table represent probabilities.
+
+    > plants
+            flower succulent tree
+    indoor    0.33      0.22 0.05
+    outdoor   0.22      0.07 0.11
+
+The probability of one event is independent of another if the probability of the first event occuring is unaffected by whether or not the other event occurs, i.e. if $P(A|B) = P (A)$. Let's see if this is the case with our plants dataset.
+
+#### Instructions
+In your console, calculate the answers to the questions in your script, we've given you two answers to start with   
+Report the answers in your script to 2 decimal places   
+Remember to use `()` when necessary in your calculations, and write words in lowercase and using ""   
+
+```{r}
+# what is the probability that a plant lives indoors?
+0.6
+# what is the probability that a plant lives indoors, if we know that it is a flower? P(I|F) = P(I*F) / P(F) = 0.60
+0.33/ 0.55
+# what is the probability that a plant is a tree?
+0.16
+# what is the probability that a plant is a tree, if we know it lives outdoors? P(T|O) = P(T and O) / P(O) = 0.28
+0.11 / 0.4
+```
+
+> The probability that a plant lives indoors is the same regardless of whether it is a flower or not. That means it is independent. On the other hand, the probability that a plant is a tree changes when we know that it lives outdoors, so these aren't independent.
+
+
+## Conditional Probability II
+100xp   
+You may remember from the lectures that the conditional probability of A given B is related to the conditional probability of B given A. To demonstrate this, in your script we have provided the probability that a plant is a tree given that it lives outdoors saved as x, and the probability that a plant lives outdoors given that it is a tree y. According to the formula
+
+$P(A|B) ∗ P(B) = P(B|A) ∗ P(A)$
+
+you can multiply x by the probability of B, and y by the probability of A to make x and y equivalent. Let's try this!
+
+#### Instructions
+Using the plants probability table saved in your console, identify the value of $P(A)$ and $P(B)$ and add these in the correct parts of your script.     
+Hit submit and look at the values of x and y.   
+
+```{r}
+# Probability that a plant is a tree, given that it lives outdoors
+x <- 0.275 * 0.4
+
+# Probability that a plant lives outdoors, given that it is a tree
+y <- 0.6875 * 0.16
+  
+# Print x and y
+c(x, y)
+```
+
+> See how P(A|B)\*P(B) is the same as P(B|A)*P(A)?
+
+## Bayesian Probability II
+100xp   
+Bayes law is based on the idea that prior knowledge about A (e.g. whether or not a plant is a tree), provides information about B (e.g. whether or not a plant lives indoors).
+
+The formula for Bayes law is: 
+
+$P(A|B) = (P(B|A) ∗ P(A)) / P(B)$
+
+Use this formula to solve the following problem: In a shop, people can take chewing gum from a dispenser on the right, or the left. The dispenser on the right has 7 packets of mint gum, and 3 packets of fruit gum, and the dispenser on the left has 7 packets of mint gum and 7 packets of fruit gum.
+
+Someone buys a packet of mint gum - what is the probability that they took this packet from the right dispenser?
+
+#### Instructions
+Complete the separate components in your script to solve the probability that someone took gum from the right dispenser, given that the packet was mint.   
+
+
+```{r}
+# P(mint | right)
+mgr <- 7/10
+  
+# P(right)
+# hint: Assume that people are indifferent
+# in their tendency to use either of the dispensers
+r <- 1/2
+  
+# P(mint)
+# hint: to calculate this probabilty, make use of a 
+# decision tree where you first select for 'left' or
+# 'right' and subsequently for mint or fruit 
+m <- (1/2)*(7/10) + (1/2)*(7/14)
+
+# Use components to solve P (right | mint)
+mgr*r/m
+```
+
+> The probability that the packet of mint gum came from the right dispenser is 0.58!

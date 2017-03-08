@@ -1,0 +1,233 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+#
+
+    ##------------------------------------------------------------------
+    ##  Random variables and their distribution
+    ##------------------------------------------------------------------
+
+# 1. Binomial 
+
+```{r}
+dbinom(x=2,size=10,prob=0.4)
+pbinom(x=2,size=10,prob=0.4)
+qbinom(p=0.4,size=10,prob=0.4)
+rbinom(n=5,size=10,prob=0.4)
+```
+
+# 2. The Hypergeometric Distribution
+
+```{r}
+ dhyper(x=2, m=10, n=30, k=6)
+ phyper(q=2, m=10, n=30, k=6)
+ qhyper(0.3, m=10, n=30, k=6)
+ rhyper(nn=10, m=10, n=30, k=6)
+```
+
+# 
+# 3. The Geometric Distribution, 
+let X count the number of failures before the first successes
+```{r}
+dgeom(4,prob=0.8)
+pgeom(4, prob = 0.8)
+qgeom(0.4,prob=0.8)
+rgeom(10,prob=0.8)
+
+```
+
+# 4.The Negative Binomial Distribution, 
+let X count the number of failures before r successes
+
+```{r}
+dnbinom(x=5,size=3,prob=0.4)   
+pnbinom(5,size=3,prob=0.4)
+qnbinom(0.5,size=3,prob=0.4)
+rnbinom(n=10,size=3,prob=0.4)
+```
+
+# 5. Poisson distributino
+
+```{r}
+dpois(x=0,lambda=2.4)
+ppois(q=10,lambda=2.4)
+qpois(p=0.9,lambda=2.4)
+rpois(n=10,lambda=2.4)
+
+ par(mfrow = c(2, 1))
+ x <- seq(-0.01, 5, 0.01)
+ plot(x, ppois(x, 1), type="s", ylab="F(x)", main="Poisson(1) CDF")
+ plot(x, pbinom(x, 100, 0.01),type="s", ylab="F(x)",main="Binomial(100, 0.01) CDF")
+
+```
+
+# 6. Normal distribution
+
+```{r}
+dnorm(0,mean=0,sd=1)
+pnorm(0)
+qnorm(2.5/100,lower.tail=F)
+rnorm(10,mean=1,sd=1.5)
+
+# some plots
+
+x <- seq(-4, 4, length = 401)
+plot(x, dnorm(x), type = 'l') # N(0, 1)
+# N(1, 1.5^2):
+lines(x, dnorm(x, mean = 1, sd = 1.5), lty = 'dashed')
+
+u <- seq(0, 1, length=401)
+plot(u, qnorm(u), 'l')
+# lower.tail = FALSE gives q(1-u)
+lines(u, qnorm(u, lower.tail = FALSE), lty = 'dashed')
+
+```
+
+# 7. exponential distribution
+
+```{r}
+ dexp(x, rate = 1, log = FALSE)
+ pexp(q, rate = 1, lower.tail = TRUE, log.p = FALSE)
+ qexp(p, rate = 1, lower.tail = TRUE, log.p = FALSE)
+ rexp(n, rate = 1)
+```
+
+# 8. Uniform distribution
+
+```{r}
+
+     dunif(x, min=0, max=1, log = FALSE)
+     punif(q, min=0, max=1, lower.tail = TRUE, log.p = FALSE)
+     qunif(p, min=0, max=1, lower.tail = TRUE, log.p = FALSE)
+     runif(n, min=0, max=1)
+```
+
+###exponential distribution
+
+#cumulative distribution function
+```{r}
+###exponential distribution
+
+#cumulative distribution function
+curve(pexp(x,rate=0.5), xlim=c(0,10), col=1, lwd=3,
+      main='Exponential Probability Distribution Function')
+curve(pexp(x,rate=1), xlim=c(0,10), col=2, lwd=2, lty=2,
+      add=T)
+curve(pexp(x,rate=5), xlim=c(0,10), col=3, lwd=2, lty=3,
+      add=T)
+curve(pexp(x,rate=10), xlim=c(0,10), col=4, lwd=2, lty=4,
+      add=T)
+legend(par('usr')[2], par('usr')[4], xjust=1,
+       c('rate=0.5','rate=1', 'rate=2','rate=10'),
+       lwd=2, lty=c(1,2,3,4),
+       col=1:4)
+```
+
+#density
+```{r}
+#density
+curve(dexp(x,rate=0.5), xlim=c(0,10), col=1, lwd=3,
+      main='Exponential Probability Distribution Function')
+curve(dexp(x,rate=1), xlim=c(0,10), col=2, lwd=2, lty=2,
+      add=T)
+curve(dexp(x,rate=5), xlim=c(0,10), col=3, lwd=2, lty=3,
+      add=T)
+curve(dexp(x,rate=10), xlim=c(0,10), col=4, lwd=2, lty=4,
+      add=T)
+legend(par('usr')[2], par('usr')[4], xjust=1,
+       c('rate=0.5','rate=1', 'rate=2','rate=10'),
+       lwd=2, lty=1:4,
+       col=1:4)
+```
+
+###normal
+#cumulative distribution function
+```{r}
+###normal
+#cumulative distribution function
+curve(pnorm(x), xlim=c(-5,5), col='red', lwd=3)
+title(main='Cumulative gaussian distribution function')
+curve(pnorm(x,1,1), xlim=c(-5,5), col='green', lwd=3,add=T)
+curve(pnorm(x,1,2),  xlim=c(-5,5), col='black', lwd=3,add=T)
+legend(-par('usr')[2], par('usr')[4], xjust=-0.5,
+       c('standard norm', 'normal(1,1)','normal(1,2)'),
+       lwd=2, col=c('red','green','black'))
+
+```
+
+#density
+```{r}
+#density
+curve(dnorm(x), xlim=c(-5,5), col='red', lwd=3)
+curve(dnorm(x,1,1), add=T, col='green', lty=2, lwd=3)
+curve(dnorm(x,1,2), add=T, col='black', lty=3, lwd=3)
+
+legend(par('usr')[2], par('usr')[4], xjust=1,
+       c('standard normal', 'normal(1,1)','normal(1,2)'),
+       lwd=2, lty=c(1,2,3),
+       col=c('red','green','black'))
+```
+
+###mixture of normal
+```{r}
+###mixture of normal
+ 
+m <- c(-2,0,2)    # Means
+p <- c(.3,.4,.3)  # Probabilities
+s <- c(1, 1, 1)   # Standard deviations
+ 
+curve( p[2]*dnorm(x, mean=m[2], sd=s[2]),
+       col = "green", lwd = 3, 
+       xlim = c(-5,5),ylim=c(0,0.23),
+       main = "The three gaussian distributions in our mixture",
+       xlab = "", ylab = "")
+curve( p[1]*dnorm(x, mean=m[1], sd=s[1]),
+       col="red", lwd=3, add=TRUE)
+curve( p[3]*dnorm(x, mean=m[3], sd=s[3]),
+       col="blue", lwd=3, add=TRUE)
+
+
+curve(p[1]*dnorm(x, mean=m[1], sd=s[1])+p[2]*dnorm(x, mean=m[2], sd=s[2])+p[3]*dnorm(x, mean=m[3], sd=s[3]),col="black", lwd=3, add=TRUE)
+```
+
+## 3D Plots of mixtures of bivariate normal with R
+```{r}
+###Plot of mixtures of bivariate normal with R
+
+# install.packages("rgl")
+library(rgl)
+ 
+dnorm2d<-function(x,y,mu1,mu2,sigma1,sigma2,rho){
+    xoy = ((x-mu1)^2/sigma1^2 - 2*rho * (x-mu1)/sigma1 * (y-mu2)/sigma2 + (y-mu2)^2/sigma2^2)/(2 * (1 - rho^2))
+    density = exp(-xoy)/(2 * pi *sigma1*sigma2*sqrt(1 - rho^2))
+    density
+}
+
+
+
+x<-seq(-5,5,by=0.1)
+y<-seq(-5,5,by=0.1)
+
+ff1<-function(x,y){0.5*dnorm2d(x,y,0,0,1,1,0)+0.5*dnorm2d(x,y,0,0,1,1,0.5)}
+
+ff2<-function(x,y){0.5*dnorm2d(x,y,0,0,1,1,0.5)+0.5*dnorm2d(x,y,0,0,1,1,-0.5)}
+
+
+ff3<-function(x,y){0.3*dnorm2d(x,y,0,0,1,1,0)+0.7*dnorm2d(x,y,2.5,2.5,1.75,1.75,0)}
+
+open3d() # This will open a small window where you can plot 3D figures on.
+
+z<-outer(x,y,ff1) 
+persp3d(x,y,z,col="green",main="ff1")
+
+open3d()
+z<-outer(x,y,ff2)
+persp3d(x,y,z,col="green",main="ff2")
+
+open3d()
+z<-outer(x,y,ff3)
+persp3d(x,y,z,col="green",main="ff3")
+```
+
